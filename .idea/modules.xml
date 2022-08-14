@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/controller/controller.iml" filepath="$PROJECT_DIR$/controller/controller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/documentanalyzer/documentanalyzer.iml" filepath="$PROJECT_DIR$/documentanalyzer/documentanalyzer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/queryrunner/queryrunner.iml" filepath="$PROJECT_DIR$/queryrunner/queryrunner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/resultstorage/resultstorage.iml" filepath="$PROJECT_DIR$/resultstorage/resultstorage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tasktracker/tasktracker.iml" filepath="$PROJECT_DIR$/tasktracker/tasktracker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/usermanager/usermanager.iml" filepath="$PROJECT_DIR$/usermanager/usermanager.iml" />
+    </modules>
+  </component>
+</project>
