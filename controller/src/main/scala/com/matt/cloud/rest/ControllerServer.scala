@@ -3,7 +3,7 @@ package com.matt.cloud.rest
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
-import com.google.inject.Inject
+import com.google.inject.{Inject, Singleton}
 import com.google.inject.name.Named
 
 import scala.concurrent.{ExecutionContext, Future}
