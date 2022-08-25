@@ -3,6 +3,7 @@ package com.matt.cloud.rest
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
+import akka.stream.Materializer
 import com.google.inject.{Inject, Singleton}
 import com.google.inject.name.Named
 
@@ -16,8 +17,9 @@ class ControllerServer @Inject()
   @Named("routes") routes: Route
 )
 (
-  implicit val actorSystem: ActorSystem,
-  implicit val executionContext: ExecutionContext
+  implicit actorSystem: ActorSystem,
+  materializer: Materializer,
+  executionContext: ExecutionContext
 ){
 
   private var bindingFuture: Future[Http.ServerBinding] = _

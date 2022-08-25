@@ -1,9 +1,10 @@
 package com.matt.cloud.rest
 
-import akka.actor.{ActorSystem, ClassicActorSystemProvider}
+import akka.actor.{ActorSystem, ClassicActorSystemProvider, Scheduler}
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.server.RouteConcatenation._
-import akka.stream.{Materializer, SystemMaterializer}
+import akka.stream.{ActorMaterializer, Materializer, SystemMaterializer}
+import com.google.inject.multibindings.Multibinder
 import com.google.inject.name.{Named, Names}
 import com.google.inject.{AbstractModule, Provides}
 import com.matt.cloud.rest.component.{AbstractComponent, FileComponent}
@@ -34,11 +35,16 @@ class ControllerModule extends AbstractModule with ScalaModule {
     })
 
     // https://github.com/codingwell/scala-guice 11 November 2020
-    val componentMultiBinder: ScalaMultibinder[AbstractComponent] = ScalaMultibinder.newSetBinder[AbstractComponent](binder)
-    componentMultiBinder.addBinding.to[FileComponent]
+    //    val componentMultiBinder: Multibinder[AbstractComponent] = Multibinder.newSetBinder(binder(), classOf[AbstractComponent])
+    //    componentMultiBinder.addBinding().to(classOf[FileComponent])
+        val componentMultiBinder: ScalaMultibinder[AbstractComponent] = ScalaMultibinder.newSetBinder[AbstractComponent](binder)
+        componentMultiBinder.addBinding.to[FileComponent]
 
-    bind[ActorSystem].toInstance(ActorSystem("MyActorSystem"))
-    bind[ExecutionContext].toInstance(ExecutionContext.Implicits.global)
+    bind[ExecutionContext].toInstance(ExecutionContext.global)
+
+    val system = ActorSystem("server-system")
+    bind[ActorSystem].annotatedWithName("server-system").toInstance(system)
+    bind[ActorSystem].toInstance(ActorSystem())
   }
 
   @Provides
@@ -49,9 +55,8 @@ class ControllerModule extends AbstractModule with ScalaModule {
   }
 
   @Provides
-  @Named("my-materializer")
-  def myMaterializer(actorSystem: ActorSystem)(implicit provider: ClassicActorSystemProvider): Materializer = {
-    SystemMaterializer(actorSystem).materializer
+  def myMaterializer(actorSystem: ActorSystem): Materializer = {
+    Materializer(actorSystem)
   }
 
 }

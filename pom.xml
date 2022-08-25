@@ -15,19 +15,18 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modules>
         <module>controller</module>
 
-        <module>tasktracker</module>
-
-        <module>queryrunner</module>
-        <module>usermanager</module>
-        <module>documentanalyzer</module>
-        <module>resultstorage</module>
+<!--        <module>tasktracker</module>-->
+<!--        <module>queryrunner</module>-->
+<!--        <module>usermanager</module>-->
+<!--        <module>documentanalyzer</module>-->
+<!--        <module>resultstorage</module>-->
     </modules>
 
     <properties>
-        <maven.compiler.source>16</maven.compiler.source>
-        <maven.compiler.target>16</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <scala.version>2.13</scala.version>
-        <scala.compat.version>8</scala.compat.version>
+        <scala.compat.version>6</scala.compat.version>
     </properties>
 
     <dependencyManagement>
@@ -50,7 +49,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
             <dependency>
                 <groupId>net.codingwell</groupId>
-                <artifactId>scala-guice_2.13</artifactId>
+                <artifactId>scala-guice_${scala.version}</artifactId>
                 <version>5.1.0</version>
             </dependency>
             <dependency>
@@ -72,27 +71,27 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
             <dependency>
                 <groupId>org.scala-lang</groupId>
                 <artifactId>scala-library</artifactId>
-                <version>2.13.8</version>
+                <version>${scala.version}.${scala.compat.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.scalikejdbc</groupId>
-                <artifactId>scalikejdbc-async_2.13</artifactId>
+                <artifactId>scalikejdbc-async_${scala.version}</artifactId>
                 <version>0.15.0</version>
             </dependency>
             <dependency>
                 <groupId>org.scalikejdbc</groupId>
-                <artifactId>scalikejdbc-config_2.13</artifactId>
+                <artifactId>scalikejdbc-config_${scala.version}</artifactId>
                 <version>4.0.0</version>
             </dependency>
             <dependency>
                 <groupId>org.scalikejdbc</groupId>
-                <artifactId>scalikejdbc-test_2.13</artifactId>
+                <artifactId>scalikejdbc-test_${scala.version}</artifactId>
                 <version>4.0.0</version>
             </dependency>
             <dependency>
                 <groupId>org.scalikejdbc</groupId>
-                <artifactId>scalikejdbc_2.13</artifactId>
+                <artifactId>scalikejdbc_${scala.version}</artifactId>
                 <version>4.0.0</version>
             </dependency>
 
@@ -122,7 +121,6 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
                 <groupId>com.typesafe.akka</groupId>
                 <artifactId>akka-actor_${scala.version}</artifactId>
                 <version>2.6.19</version>
-                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>com.typesafe.akka</groupId>
@@ -141,7 +139,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
             </dependency>
             <dependency>
                 <groupId>com.typesafe.scala-logging</groupId>
-                <artifactId>scala-logging_2.13</artifactId>
+                <artifactId>scala-logging_${scala.version}</artifactId>
                 <version>3.9.5</version>
             </dependency>
             <dependency>
@@ -153,12 +151,19 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
             <!--Test Dependencies-->
             <dependency>
                 <groupId>org.scalatest</groupId>
-                <artifactId>scalatest_2.13.0-RC2</artifactId>
+                <artifactId>scalatest_${scala.compat.version}.0-RC2</artifactId>
                 <version>3.0.8-RC5</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
         <pluginManagement>
@@ -191,7 +196,6 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
                     </configuration>
                 </plugin>
                 <plugin>
-                    <!-- Build an executable JAR -->
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>2.5</version>
@@ -265,6 +269,11 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
                             </configuration>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.10.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
