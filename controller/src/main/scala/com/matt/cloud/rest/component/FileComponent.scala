@@ -9,7 +9,7 @@ import akka.stream.Materializer
 import akka.stream.alpakka.s3.{MultipartUploadResult, ObjectMetadata}
 import akka.stream.scaladsl.Source
 import akka.util.ByteString
-import com.google.inject.Inject
+import com.google.inject.{Inject, Singleton}
 import com.matt.cloud.rest.entities.S3DownloadRequestJsonSupport._
 import com.matt.cloud.rest.entities.{S3DownloadRequest, S3File, S3UploadRequest}
 import com.matt.cloud.rest.service.S3FileService

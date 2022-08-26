@@ -34,15 +34,12 @@ class ControllerModule extends AbstractModule with ScalaModule {
       }
     })
 
-    // https://github.com/codingwell/scala-guice 11 November 2020
-    //    val componentMultiBinder: Multibinder[AbstractComponent] = Multibinder.newSetBinder(binder(), classOf[AbstractComponent])
-    //    componentMultiBinder.addBinding().to(classOf[FileComponent])
-        val componentMultiBinder: ScalaMultibinder[AbstractComponent] = ScalaMultibinder.newSetBinder[AbstractComponent](binder)
-        componentMultiBinder.addBinding.to[FileComponent]
+    val componentMultiBinder: ScalaMultibinder[AbstractComponent] = ScalaMultibinder.newSetBinder(binder, classOf[AbstractComponent])
+    componentMultiBinder.addBinding.to(classOf[FileComponent])
 
     bind[ExecutionContext].toInstance(ExecutionContext.global)
 
-    val system = ActorSystem("server-system")
+    val system: ActorSystem = ActorSystem("server-system")
     bind[ActorSystem].annotatedWithName("server-system").toInstance(system)
     bind[ActorSystem].toInstance(ActorSystem())
   }
